@@ -1,0 +1,23 @@
+:root {
+  --canvas: #FBF9F3;
+  --surface: #FFFFFF;
+  --ink: #22252A;
+  --ink-muted: #6B6A66;
+  --border: #ECE7DA;
+
+  --brand: #FF5D3A;
+  --brand-dark: #D6431F;
+
+  --applied: #F2A63C;
+  --applied-text: #9A5F0E;
+  --interview: #4361EE;
+  --interview-text: #28409E;
+  --offer: #1E9E6B;
+  --offer-text: #166B49;
+  --rejected: #E4536B;
+  --rejected-text: #A33245;
+
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
