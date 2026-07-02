@@ -27,6 +27,26 @@
   margin-bottom: 10px;
 }
 
+.job-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.job-card-edit {
+  background: transparent;
+  border: none;
+  color: var(--ink-muted);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.job-card-edit:hover {
+  color: var(--brand);
+}
+
 .job-card-delete {
   background: transparent;
   border: none;
@@ -35,6 +55,10 @@
   color: var(--ink-muted);
   padding: 0 2px;
   flex-shrink: 0;
+}
+
+.job-card-delete:hover {
+  color: var(--rejected-text);
 }
 
 .job-card-delete:hover {
