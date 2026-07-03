@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LandingNavbar from '../components/LandingNavbar';
 import Reveal from '../components/Reveal';
@@ -112,6 +113,98 @@ const QUOTES = [
   { text: 'Fall seven times, stand up eight.', author: 'Japanese Proverb' },
 ];
 
+function FeatureCarousel({ features }) {
+  const [active, setActive] = useState(0);
+  const pausedRef = useRef(false);
+  const len = features.length;
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+    const id = setInterval(() => {
+      if (!pausedRef.current) {
+        setActive((prev) => (prev + 1) % len);
+      }
+    }, 3500);
+    return () => clearInterval(id);
+  }, [len]);
+
+  const goTo = (i) => setActive(((i % len) + len) % len);
+  const next = () => goTo(active + 1);
+  const prev = () => goTo(active - 1);
+
+  const getOffset = (i) => {
+    let diff = i - active;
+    if (diff > len / 2) diff -= len;
+    if (diff < -len / 2) diff += len;
+    return diff;
+  };
+
+  return (
+    <div
+      className="feature-carousel"
+      onMouseEnter={() => { pausedRef.current = true; }}
+      onMouseLeave={() => { pausedRef.current = false; }}
+    >
+      <button type="button" className="feature-carousel-arrow feature-carousel-arrow-left" onClick={prev} aria-label="Previous feature">
+        <svg width="26" height="32" viewBox="0 0 26 32" fill="none">
+          <path d="M23 2 L3 16 L23 30 Z" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" fill="none" />
+        </svg>
+      </button>
+
+      <div className="feature-carousel-stage">
+        {features.map(({ icon: Icon, title, text }, i) => {
+          const offset = getOffset(i);
+          const abs = Math.abs(offset);
+          const clamped = Math.max(-2, Math.min(2, offset));
+          const translate = clamped * 390;
+          const scale = clamped === 0 ? 1.08 : abs === 1 ? 0.88 : 0.72;
+          const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+          const opacity = clamped === 0 ? 1 : abs === 1 ? (isDark ? 0.55 : 0.82) : 0;
+          const brightness = isDark ? (clamped === 0 ? 1 : 0.5) : 1;
+
+          return (
+            <div
+              key={title}
+              className="feature-card feature-carousel-card"
+              style={{
+                transform: `translateX(calc(-50% + ${translate}px)) scale(${scale})`,
+                opacity,
+                filter: `brightness(${brightness})`,
+                zIndex: 10 - abs,
+                pointerEvents: clamped === 0 ? 'auto' : 'none',
+              }}
+              aria-hidden={clamped !== 0}
+            >
+              <div className="feature-icon"><Icon /></div>
+              <div className="feature-title">{title}</div>
+              <div className="feature-text">{text}</div>
+            </div>
+          );
+        })}
+      </div>
+
+      <button type="button" className="feature-carousel-arrow feature-carousel-arrow-right" onClick={next} aria-label="Next feature">
+        <svg width="26" height="32" viewBox="0 0 26 32" fill="none">
+          <path d="M3 2 L23 16 L3 30 Z" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" fill="none" />
+        </svg>
+      </button>
+
+      <div className="feature-carousel-dots">
+        {features.map((f, i) => (
+          <button
+            key={f.title}
+            type="button"
+            className={`feature-carousel-dot ${i === active ? 'is-active' : ''}`}
+            aria-label={`Show ${f.title}`}
+            onClick={() => goTo(i)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Landing() {
   return (
     <div className="landing">
@@ -178,7 +271,7 @@ function Landing() {
       </section>
 
       <Reveal>
-        <section className="landing-stats-section">
+        <section className="landing-stats-section" id="stats">
           <DoodleSquiggle color="var(--offer)" className="doodle-stats-1" />
           <DoodleSpark color="var(--rejected)" className="doodle-stats-2" />  
             <h2 className="landing-stats-heading">The job hunt is a numbers game</h2>
@@ -198,20 +291,12 @@ function Landing() {
         <Reveal>
           <h2>Everything your job hunt actually needs</h2>
         </Reveal>
-        <div className="feature-grid">
-          {FEATURES.map(({ icon: Icon, title, text }, i) => (
-            <Reveal key={title} delay={i * 80}>
-              <div className="feature-card">
-                <div className="feature-icon"><Icon /></div>
-                <div className="feature-title">{title}</div>
-                <div className="feature-text">{text}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <FeatureCarousel features={FEATURES} />
+        </Reveal>
       </section>
 
-      <section className="landing-quotes">
+      <section className="landing-quotes" id="stories">
         <DoodleBlob color="var(--brand)" className="doodle-quotes-1" />
         <Reveal>
           <h2>For the days that feel discouraging</h2>
@@ -230,17 +315,38 @@ function Landing() {
       </section>
 
       <footer className="landing-footer">
-        <div className="landing-footer-top">
-          <div>
-            <div className="landing-footer-brand">job tracker</div>
-            <div className="landing-footer-copy">Built by Sharon</div>
-          </div>
-          <div className="landing-footer-social">
-            <a href="https://github.com/sharonxlal20" target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon /></a>
-            <a href="https://linkedin.com/in/sharonabhisheklal" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedinIcon /></a>
-          </div>
-        </div>
-      </footer>
+  <DoodleRing color="var(--offer)" className="doodle-footer-1" />
+  <DoodleSpark color="var(--interview)" className="doodle-footer-2" />
+
+  <div className="landing-footer-top">
+    <div className="landing-footer-brand-col">
+      <div className="landing-footer-brand">job tracker</div>
+      <p className="landing-footer-copy">Every application, stamped and sorted</p>
+      <div className="landing-footer-social">
+        <a href="https://github.com/sharonxlal20" target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon /></a>
+        <a href="https://linkedin.com/in/sharonabhisheklal" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedinIcon /></a>
+      </div>
+    </div>
+
+    <div className="landing-footer-col">
+      <div className="landing-footer-heading">Explore</div>
+      <a href="#features">Features</a>
+      <a href="#stats">Stats</a>
+      <a href="#stories">Stories</a>
+    </div>
+
+    <div className="landing-footer-cta-col">
+      <div className="landing-footer-heading">Ready when you are</div>
+      <p className="landing-footer-copy">Your next offer starts with the first application you track.</p>
+      <Link to="/signup" className="landing-footer-cta">Get started — it's free</Link>
+    </div>
+  </div>
+
+  <div className="landing-footer-bottom">
+    <span>© {new Date().getFullYear()} job tracker</span>
+    <span>built by Sharon</span>
+  </div>
+</footer>
     </div>
   );
 }

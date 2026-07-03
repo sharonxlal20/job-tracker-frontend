@@ -2,8 +2,10 @@
   padding: 32px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  min-height: 70vh;
 }
-
 .dashboard-header {
   display: flex;
   align-items: center;
@@ -23,10 +25,12 @@
   border-radius: 8px;
   font-weight: 600;
   font-size: 13px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .add-job-btn:hover {
   background: var(--brand-dark);
+  transform: translateY(-2px);
 }
 
 .board {
@@ -69,6 +73,16 @@
   text-align: center;
   border: 1px dashed var(--border);
   border-radius: 8px;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.column-empty:hover {
+  border-color: var(--brand);
+  color: var(--ink);
+  transform: translateY(-2px);
 }
 
 .dashboard-error {
@@ -86,4 +100,76 @@
   color: var(--ink-muted);
   padding: 40px 0;
   text-align: center;
+}
+
+.job-card-wrap {
+  animation: card-in 0.4s ease both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .job-card-wrap { animation: none; }
+}
+
+.doodle-blob, .doodle-ring, .doodle-squiggle, .doodle-spark {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.38;
+  mix-blend-mode: multiply;
+  z-index: -1;
+}
+
+[data-theme='dark'] .doodle-blob,
+[data-theme='dark'] .doodle-ring,
+[data-theme='dark'] .doodle-squiggle,
+[data-theme='dark'] .doodle-spark {
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.doodle-blob { width: 220px; height: 220px; }
+.doodle-ring { width: 84px; height: 84px; }
+.doodle-squiggle { width: 100px; height: auto; }
+.doodle-spark { width: 34px; height: 34px; }
+
+.doodle-dash-1 { top: 10px; right: 8%; }
+.doodle-dash-2 { top: 380px; left: -70px; }
+.doodle-dash-3 { top: 60px; left: 44%; }
+.doodle-dash-4 { top: 460px; right: 4%; }
+
+@keyframes doodle-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.doodle-ring { animation: doodle-spin 24s linear infinite; }
+
+@keyframes doodle-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.38; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 0.52; }
+}
+.doodle-spark { animation: doodle-twinkle 4.5s ease-in-out infinite; }
+
+[data-theme='dark'] .doodle-spark {
+  animation-name: doodle-twinkle-dark;
+}
+
+@keyframes doodle-twinkle-dark {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.22; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 0.34; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle-ring, .doodle-spark { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .doodle-blob { width: 160px; height: 160px; }
+}
+
+@media (max-width: 640px) {
+  .doodle-dash-3, .doodle-dash-4 { display: none; }
 }

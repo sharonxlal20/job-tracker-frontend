@@ -1,5 +1,7 @@
 .auth-page {
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,6 +15,7 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 32px 28px;
+  position: relative;
 }
 
 .auth-brand {
@@ -132,4 +135,57 @@
   padding: 8px 12px;
   border-radius: 8px;
   margin-bottom: 16px;
+}
+
+.doodle-blob, .doodle-spark {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.38;
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+[data-theme='dark'] .doodle-blob,
+[data-theme='dark'] .doodle-spark {
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.doodle-blob { width: 170px; height: 170px; }
+.doodle-spark { width: 42px; height: 42px; }
+
+.doodle-auth-1 {
+  top: -140px;
+  left: -140px;
+  z-index: -1;
+}
+.doodle-auth-2 { top: 78%; left: 62%; }
+
+@keyframes doodle-float-3 {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(-4deg); }
+}
+.doodle-auth-1 { animation: doodle-float-3 10s ease-in-out infinite; }
+
+@keyframes doodle-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.38; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 0.52; }
+}
+.doodle-auth-2 { animation: doodle-twinkle 4.5s ease-in-out infinite; }
+
+[data-theme='dark'] .doodle-auth-2 {
+  animation-name: doodle-twinkle-dark;
+}
+
+@keyframes doodle-twinkle-dark {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.22; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 0.34; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle-auth-1, .doodle-auth-2 { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .doodle-auth-1, .doodle-auth-2 { display: none; }
 }

@@ -1,6 +1,5 @@
 .landing-navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 20px 48px;
   position: sticky;
@@ -8,6 +7,31 @@
   background: var(--canvas);
   border-bottom: 1px solid var(--border);
   z-index: 50;
+}
+
+.landing-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-left: auto;
+  margin-right: 90px;
+}
+
+.landing-navbar-link {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  transition: color 0.15s ease;
+}
+
+.landing-navbar-link:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .landing-navbar-links {
+    display: none;
+  }
 }
 
 .landing-navbar-brand {

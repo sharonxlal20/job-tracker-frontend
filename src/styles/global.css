@@ -28,3 +28,16 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+#features, #stats, #stories {
+  scroll-margin-top: 84px;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}

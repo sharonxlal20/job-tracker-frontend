@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { DoodleBlob, DoodleSpark } from '../components/Doodles';
 import './Auth.css';
 
 function EyeIcon({ open }) {
@@ -43,7 +44,9 @@ function Signup() {
 
   return (
     <div className="auth-page">
+      <DoodleSpark color="var(--offer)" className="doodle-auth-2" />
       <div className="auth-card">
+        <DoodleBlob color="var(--interview)" className="doodle-auth-1" />
         <div className="auth-brand">job tracker</div>
         <div className="auth-subtitle">Create an account to get started</div>
 

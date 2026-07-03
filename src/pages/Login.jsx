@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { DoodleBlob, DoodleSpark } from '../components/Doodles';
 import './Auth.css';
 
 function EyeIcon({ open }) {
@@ -44,7 +45,9 @@ function Login() {
 
   return (
     <div className="auth-page">
+      <DoodleSpark color="var(--offer)" className="doodle-auth-2" />
       <div className="auth-card">
+        <DoodleBlob color="var(--interview)" className="doodle-auth-1" />
         <div className="auth-brand">job tracker</div>
         <div className="auth-subtitle">Log in to see your applications</div>
 

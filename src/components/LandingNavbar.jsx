@@ -26,6 +26,13 @@ function LandingNavbar() {
   return (
     <nav className="landing-navbar">
       <Link to="/" className="landing-navbar-brand">job tracker</Link>
+
+      <div className="landing-navbar-links">
+        <a href="#features" className="landing-navbar-link">Features</a>
+        <a href="#stats" className="landing-navbar-link">Stats</a>
+        <a href="#stories" className="landing-navbar-link">Stories</a>
+      </div>
+
       <div className="landing-navbar-right">
         <button
           type="button"

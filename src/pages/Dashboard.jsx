@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import JobCard from '../components/JobCard';
 import AddJobModal from '../components/AddJobModal';
+import { DoodleBlob, DoodleRing, DoodleSquiggle, DoodleSpark } from '../components/Doodles';
 import api from '../api/axios';
 import './Dashboard.css';
 
@@ -46,6 +47,11 @@ function Dashboard() {
     <div>
       <Navbar />
       <div className="dashboard">
+        <DoodleRing color="var(--applied)" className="doodle-dash-1" />
+        <DoodleBlob color="var(--interview)" className="doodle-dash-2" />
+        <DoodleSpark color="var(--offer)" className="doodle-dash-3" />
+        <DoodleSquiggle color="var(--rejected)" className="doodle-dash-4" />
+
         <div className="dashboard-header">
           <h1>Applications</h1>
           <button className="add-job-btn" onClick={() => setShowModal(true)}>+ Add job</button>
@@ -67,9 +73,15 @@ function Dashboard() {
                     <span className="column-count">{statusJobs.length}</span>
                   </div>
                   {statusJobs.length === 0 ? (
-                    <div className="column-empty">No applications yet</div>
+                    <button type="button" className="column-empty" onClick={() => setShowModal(true)}>
+                      No applications yet — tap to add one
+                    </button>
                   ) : (
-                    statusJobs.map((job) => <JobCard key={job._id} job={job} onUpdated={fetchJobs} />)
+                    statusJobs.map((job, i) => (
+                      <div className="job-card-wrap" key={job._id} style={{ animationDelay: `${i * 60}ms` }}>
+                        <JobCard job={job} onUpdated={fetchJobs} />
+                      </div>
+                    ))
                   )}
                 </div>
               );
