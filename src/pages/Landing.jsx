@@ -287,7 +287,7 @@ function Landing() {
         </section>
       </Reveal>
 
-      <section className="landing-features">
+      <section className="landing-features" id="features">
         <Reveal>
           <h2>Everything your job hunt actually needs</h2>
         </Reveal>
