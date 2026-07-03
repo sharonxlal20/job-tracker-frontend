@@ -10,6 +10,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
 }
 
 .landing-hero-text h1 {
@@ -166,6 +168,8 @@
   margin: 0 auto;
   padding: 40px 48px 70px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .landing-stats-heading {
@@ -219,6 +223,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  align-items: stretch;
 }
 
 .feature-card {
@@ -226,6 +231,9 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -264,6 +272,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 48px 100px;
+  position: relative;
+  overflow: hidden;
 }
 
 .landing-quotes h2 {
@@ -428,4 +438,55 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.doodle-blob, .doodle-ring, .doodle-squiggle, .doodle-spark {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+  z-index: -1;
+}
+
+[data-theme='dark'] .doodle-blob,
+[data-theme='dark'] .doodle-ring,
+[data-theme='dark'] .doodle-squiggle,
+[data-theme='dark'] .doodle-spark {
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.doodle-blob { width: 240px; height: 240px; }
+.doodle-ring { width: 84px; height: 84px; }
+.doodle-squiggle { width: 100px; height: auto; }
+.doodle-spark { width: 30px; height: 30px; }
+
+.doodle-hero-1 { top: -40px; left: -60px; }
+.doodle-hero-2 { top: 30px; right: 4%; }
+.doodle-stats-1 { top: 10px; left: 6%; }
+.doodle-stats-2 { top: 60px; right: 10%; transform: rotate(12deg); }
+.doodle-quotes-1 { bottom: -80px; right: -60px; }
+
+@keyframes doodle-float-1 {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-10px) rotate(-6deg); }
+}
+.doodle-hero-1 { animation: doodle-float-1 9s ease-in-out infinite; }
+
+@keyframes doodle-float-2 {
+  0%, 100% { transform: translateY(0) rotate(20deg); }
+  50% { transform: translateY(12px) rotate(20deg); }
+}
+.doodle-quotes-1 { animation: doodle-float-2 11s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle-hero-1, .doodle-quotes-1 { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .doodle-blob { width: 160px; height: 160px; }
+}
+
+@media (max-width: 640px) {
+  .doodle-hero-2, .doodle-stats-2 { display: none; }
 }

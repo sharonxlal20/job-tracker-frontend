@@ -31,10 +31,11 @@ function StampIcon() {
   );
 }
 
-function MoonIcon() {
+function TrendingIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      <polyline points="3 17 9 11 13 15 21 6" />
+      <polyline points="14 6 21 6 21 13" />
     </svg>
   );
 }
@@ -55,11 +56,47 @@ function LinkedinIcon() {
   );
 }
 
+function DoodleBlob({ color, className }) {
+  return (
+    <svg viewBox="0 0 200 200" className={`doodle-blob ${className || ''}`} aria-hidden="true">
+      <path
+        fill={color}
+        d="M47.7,-58.5C60.7,-49.4,69.6,-33.6,72.6,-16.7C75.6,0.2,72.7,18.2,63.8,32.8C54.9,47.4,40,58.6,23.1,64.8C6.2,71,-12.7,72.2,-29.4,66.3C-46.1,60.4,-60.6,47.4,-68.1,31.2C-75.6,15,-76.1,-4.4,-70,-21.3C-63.9,-38.2,-51.2,-52.6,-36.2,-61.3C-21.2,-70,-10.6,-73,3.9,-78.1C18.4,-83.2,34.7,-67.6,47.7,-58.5Z"
+        transform="translate(100 100)"
+      />
+    </svg>
+  );
+}
+
+function DoodleRing({ color, className }) {
+  return (
+    <svg viewBox="0 0 100 100" className={`doodle-ring ${className || ''}`} aria-hidden="true">
+      <circle cx="50" cy="50" r="36" fill="none" stroke={color} strokeWidth="2.5" strokeDasharray="4 6" />
+    </svg>
+  );
+}
+
+function DoodleSquiggle({ color, className }) {
+  return (
+    <svg viewBox="0 0 120 24" className={`doodle-squiggle ${className || ''}`} aria-hidden="true">
+      <path d="M2 12 Q 17 2, 32 12 T 62 12 T 92 12 T 118 12" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function DoodleSpark({ color, className }) {
+  return (
+    <svg viewBox="0 0 40 40" className={`doodle-spark ${className || ''}`} aria-hidden="true">
+      <path d="M20 3 L23 17 L37 20 L23 23 L20 37 L17 23 L3 20 L17 17 Z" fill={color} />
+    </svg>
+  );
+}
+
 const FEATURES = [
   { icon: BoardIcon, title: 'Kanban pipeline', text: 'See every application at every stage — Applied, Interview, Offer, Rejected — laid out in one board.' },
   { icon: SearchIcon, title: 'Search, filter & sort', text: 'Find any application by company or role, filter by status, sort however makes sense to you.' },
   { icon: StampIcon, title: 'Stamped status badges', text: "Every card gets a hand-stamped badge for its status — a small visual signature, not a generic pill." },
-  { icon: MoonIcon, title: 'Dark mode', text: 'Switch instantly — it remembers your preference the next time you\'re back.' },
+  { icon: TrendingIcon, title: 'See your journey take shape', text: 'Every stage move is a milestone — watch applications shift from Applied to Offer, and see how far you\'ve actually come.' },
 ];
 
 const STATS = [
@@ -81,6 +118,8 @@ function Landing() {
       <LandingNavbar />
 
       <section className="landing-hero">
+        <DoodleBlob color="var(--applied)" className="doodle-hero-1" />
+        <DoodleRing color="var(--interview)" className="doodle-hero-2" />
         <div className="landing-hero-text">
           <h1>Every application,<br />stamped and sorted.</h1>
           <p>A colorful Kanban board for tracking job applications — from first apply to final offer, one stamp at a time.</p>
@@ -140,6 +179,8 @@ function Landing() {
 
       <Reveal>
         <section className="landing-stats-section">
+          <DoodleSquiggle color="var(--offer)" className="doodle-stats-1" />
+          <DoodleSpark color="var(--rejected)" className="doodle-stats-2" />  
             <h2 className="landing-stats-heading">The job hunt is a numbers game</h2>
             <div className="landing-stats">
                 {STATS.map((stat) => (
@@ -171,6 +212,7 @@ function Landing() {
       </section>
 
       <section className="landing-quotes">
+        <DoodleBlob color="var(--brand)" className="doodle-quotes-1" />
         <Reveal>
           <h2>For the days that feel discouraging</h2>
         </Reveal>
@@ -191,11 +233,7 @@ function Landing() {
         <div className="landing-footer-top">
           <div>
             <div className="landing-footer-brand">job tracker</div>
-            <div className="landing-footer-copy">Built by Sharon — a MERN stack project for placement season.</div>
-          </div>
-          <div className="landing-footer-links">
-            <Link to="/login">Log in</Link>
-            <Link to="/signup">Sign up</Link>
+            <div className="landing-footer-copy">Built by Sharon</div>
           </div>
           <div className="landing-footer-social">
             <a href="https://github.com/sharonxlal20" target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon /></a>
