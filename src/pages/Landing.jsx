@@ -332,7 +332,7 @@ function Landing() {
       <div className="landing-footer-heading">Explore</div>
       <a href="#features">Features</a>
       <a href="#stats">Stats</a>
-      <a href="#stories">Stories</a>
+      <a href="#motivation">Motivation</a>
     </div>
 
     <div className="landing-footer-cta-col">
