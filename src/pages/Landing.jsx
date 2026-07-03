@@ -296,7 +296,7 @@ function Landing() {
         </Reveal>
       </section>
 
-      <section className="landing-quotes" id="stories">
+      <section className="landing-quotes" id="motivation">
         <DoodleBlob color="var(--brand)" className="doodle-quotes-1" />
         <Reveal>
           <h2>For the days that feel discouraging</h2>
